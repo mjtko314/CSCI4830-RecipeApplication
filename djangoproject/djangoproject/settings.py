@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'hello_world_app',
-    'hello_world_app2',
     'recipe_browser',
 ]
 

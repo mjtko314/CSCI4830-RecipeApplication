@@ -18,7 +18,5 @@ from django.urls import path, include
 from recipe_browser.views import hello 
 
 urlpatterns = [ 
-    #path('', include('hello_world_app2.urls')), 
-    #path('', include('hello_world_app.urls')),
     path('', hello),
     ]
