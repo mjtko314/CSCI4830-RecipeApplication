@@ -7,7 +7,9 @@
 {% for recipe in recipes %}
 <h2>{{ recipe.title }}</h2>
 <p>{{ recipe.author }} | {{ recipe.date_posted }}</p>
-<h5>{{ recipe.content }}</h5>
+<h5>{{ recipe.cuisine }}</h5>
+<h5>{{ recipe.ingredients }}</h5>
+<h5>{{ recipe.instructions}}</h5>
 <hr />
 {% endfor %}
 {% endblock content %}
