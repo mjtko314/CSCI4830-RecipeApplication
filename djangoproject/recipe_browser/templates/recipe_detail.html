@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+<h1>{{ object.title }}</h1>
+ 
+<div class="card my-4">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">
+      By {{ object.author|default:"Unknown author" }}
+      {% if object.cuisine %}&middot; {{ object.cuisine }}{% endif %}
+      &middot; Added {{ object.date_added|date:"M j, Y" }}
+      {% if not object.is_public %}<span class="badge bg-secondary">Private</span>{% endif %}
+    </h6>
+ 
+    <h5 class="card-title mt-4">Ingredients</h5>
+    {% if object.ingredients %}
+      <div class="card-text">{{ object.ingredients|linebreaks }}</div>
+    {% else %}
+      <p class="card-text text-muted">No ingredients listed.</p>
+    {% endif %}
+ 
+    <h5 class="card-title mt-4">Instructions</h5>
+    {% if object.instructions %}
+      <div class="card-text">{{ object.instructions|linebreaks }}</div>
+    {% else %}
+      <p class="card-text text-muted">No instructions listed.</p>
+    {% endif %}
+  </div>
+</div>
+ 
+<a class="btn btn-outline-secondary" href="{% url 'recipes-view' %}">Back to recipes</a>
+ 
+{% if object.author == user or user.is_staff %}
+  <a class="btn btn-outline-info" href="{% url 'recipes-update' object.id %}">Update</a>
+  <a class="btn btn-outline-danger" href="{% url 'recipes-delete' object.id %}">Delete</a>
+{% endif %}
+{% endblock content %}
