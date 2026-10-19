@@ -3,13 +3,6 @@
 {% block title %} - Home{% endblock %}
 
 {% block content %}
-<h1>Recipes:</h1>
-{% for recipe in recipes %}
-<h2>{{ recipe.title }}</h2>
-<p>{{ recipe.author }} | {{ recipe.date_posted }}</p>
-<h5>{{ recipe.cuisine }}</h5>
-<h5>{{ recipe.ingredients }}</h5>
-<h5>{{ recipe.instructions}}</h5>
-<hr />
-{% endfor %}
+<h1>Welcome to the Recipe Browser:</h1>
+<h3>Create, edit, and browse recipes you and other users have made.</h3>
 {% endblock content %}
