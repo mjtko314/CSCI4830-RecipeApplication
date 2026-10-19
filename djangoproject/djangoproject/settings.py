@@ -40,10 +40,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'recipe_browser',
     'users',
-    'crispy_forms',
-    'crispy_bootstrap5',
-]
-
+    'bootstrap5',
+    ]
+    
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
