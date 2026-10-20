@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 <!-- -->
 {% block content %}
-<h1>Recipes:</h1>
+<h1>My Recipes:</h1>
 {% for recipe in recipes %}
+{% if recipe.author == user or user.is_staff %}
 <div class="card my-4">
   <div class="card-body">
     <h5 class="card-title">{{ recipe.title }}</h5>
@@ -14,6 +15,7 @@
     <a href="{% url 'recipes-detail' recipe.pk %}" class="card-link">View Recipe</a>
   </div>
 </div>
+{% endif %}
 {% endfor %}
 <!-- -->
 {% endblock content %}

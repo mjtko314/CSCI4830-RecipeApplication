@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
 
 
@@ -27,3 +29,23 @@ class RecipeListView(ListView):
 class RecipeDetailView(DetailView):
     model = models.Recipe
     template_name = 'recipe_detail.html'
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    model = models.Recipe
+    template_name = 'recipe_form.html'
+    fields = ['title', 'is_public', 'cuisine', 'ingredients', 'instructions']
+    success_url = reverse_lazy("recipes-view")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+    model = models.Recipe
+    template_name = 'recipe_form.html'
+    fields = ['title', 'is_public', 'cuisine', 'ingredients', 'instructions']
+    success_url = reverse_lazy("recipes-view")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
