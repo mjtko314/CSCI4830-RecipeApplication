@@ -1,0 +1,29 @@
+{% if recipes.has_other_pages %}
+<nav aria-label="Recipe pages" class="my-4">
+  <ul class="pagination justify-content-center">
+
+    {% if recipes.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1{% if query %}&q={{ query|urlencode }}{% endif %}">&laquo; First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ recipes.previous_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}">Previous</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item disabled">
+      <span class="page-link">Page {{ recipes.number }} of {{ recipes.paginator.num_pages }}</span>
+    </li>
+
+    {% if recipes.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ recipes.next_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ recipes.paginator.num_pages }}{% if query %}&q={{ query|urlencode }}{% endif %}">Last &raquo;</a>
+      </li>
+    {% endif %}
+
+  </ul>
+</nav>
+{% endif %}

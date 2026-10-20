@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
+from django.core.paginator import Paginator
 from . import models
 
 
@@ -18,24 +19,30 @@ def search_recipes(queryset, query):
             | Q(ingredients__icontains=query)
         )
     return queryset
+    
+def paginate(request, queryset, recipes_per_page = 5):
+    paginator = Paginator(queryset, recipes_per_page)
+    return paginator.get_page(request.GET.get('page'))
+
 
 @login_required
 def recipes(request):
     query = request.GET.get("q", "").strip()
     user_recipes = models.Recipe.objects.filter(author=request.user)
     user_recipes = search_recipes(user_recipes, query)
+
     return render(request, 'recipes.html', {
-        'recipes': user_recipes,
+        'recipes': paginate(request, user_recipes),
         'page_title': 'My Recipes',
         'query': query,
     })
 
 def public_recipes(request):
     query = request.GET.get("q", "").strip()
-    pub = models.Recipe.objects.filter(is_public=True)
-    pub = search_recipes(pub, query)
+    public_recipes = models.Recipe.objects.filter(is_public=True)
+    public_recipes = search_recipes(public_recipes, query)
     return render(request, 'public_recipes.html', {
-        'recipes': pub,
+        'recipes': paginate(request, public_recipes),
         'page_title': 'Public Recipes',
         'query': query,
     })
