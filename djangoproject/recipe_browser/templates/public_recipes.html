@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<!-- -->
+{% block content %}
+<h1>Discover Recipes:</h1>
+<form method="get" class="d-flex my-3">
+  <input type="search" name="q" value="{{ query }}" class="form-control me-2"
+         placeholder="Search title, cuisine or ingredients">
+  <button type="submit" class="btn btn-outline-primary">Search</button>
+  {% if query %}<a href="{% url 'public-recipes-view' %}" class="btn btn-link">Clear</a>{% endif %}
+</form>
+{% for recipe in recipes %}
+<div class="card my-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ recipe.title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ recipe.author }} - Created on: {{ recipe.date_added }}</h6>
+    <a href="{% url 'recipes-detail' recipe.pk %}" class="card-link">View Recipe</a>
+  </div>
+</div>
+{% endfor %}
+<!-- -->
+{% endblock content %}

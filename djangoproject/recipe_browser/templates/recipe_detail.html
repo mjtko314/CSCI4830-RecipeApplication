@@ -28,10 +28,10 @@
   </div>
 </div>
  
-<a class="btn btn-outline-secondary" href="{% url 'recipes-view' %}">Back to recipes</a>
+<a href="{{ request.META.HTTP_REFERER|default:'/recipes/public/' }}" class="btn btn-outline-secondary">Back</a>
  
 {% if object.author == user or user.is_staff %}
   <a class="btn btn-outline-info" href="{% url 'recipes-update' object.id %}">Update</a>
-  
+  <a class="btn btn-outline-danger" href="{% url 'recipes-delete' object.id %}">Delete</a>
 {% endif %}
 {% endblock content %}
