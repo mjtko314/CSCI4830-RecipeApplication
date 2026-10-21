@@ -3,14 +3,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from . import forms
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 
 # Create your views here.
 def register(request):
   if request.method == "POST":
     form = forms.UserRegisterForm(request.POST)
     if form.is_valid():
-      form.save()
-      # cleaned data is a dictionary
+      user = form.save()
+      login(request, user)
       username = form.cleaned_data.get('username')
       messages.success(request, f"{username}, you're account is created!")
       return redirect('recipes-home')
